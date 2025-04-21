@@ -62,7 +62,8 @@ async function main() {
     const processedData: ExtractedPageData[] = recentPages.map(page => {
       // 敏感な情報をマスキング
       const maskedTitle = maskSensitiveData(page.title, maskKeywords);
-      const maskedContent = maskSensitiveData(page.content, maskKeywords);
+      const content = page.lines.map(line => line.text).join('\n');
+      const maskedContent = maskSensitiveData(content, maskKeywords);
       
       return {
         title: maskedTitle,
