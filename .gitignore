@@ -1,0 +1,43 @@
+# 依存関係
+node_modules/
+yarn-error.log
+
+# ビルド成果物
+dist/
+build/
+*.tsbuildinfo
+
+# 環境設定
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# エディタの設定
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+*.sublime-project
+*.sublime-workspace
+
+# OS固有のファイル
+.DS_Store
+Thumbs.db
+
+# ログファイル
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# デバッグ
+.nyc_output
+coverage/
+
+# 出力ファイル
+output.csv
+*.csv
