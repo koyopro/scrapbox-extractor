@@ -3,9 +3,23 @@ import { ScrapboxPage, ScrapboxPagesResponse } from '../types/scrapbox.js';
 
 export class ScrapboxService {
   private readonly projectName: string;
+  private readonly cookie?: string;
   
-  constructor(projectName: string) {
+  constructor(projectName: string, cookie?: string) {
     this.projectName = projectName;
+    this.cookie = cookie;
+  }
+
+  /**
+   * axios用のリクエストヘッダーを生成する
+   * @returns HTTPリクエストヘッダー
+   */
+  private getHeaders() {
+    const headers: Record<string, string> = {};
+    if (this.cookie) {
+      headers['Cookie'] = this.cookie;
+    }
+    return headers;
   }
 
   /**
@@ -20,7 +34,8 @@ export class ScrapboxService {
         {
           params: {
             limit: 1000, // 取得上限件数を設定
-          }
+          },
+          headers: this.getHeaders(),
         }
       );
       
@@ -33,6 +48,9 @@ export class ScrapboxService {
           try {
             const detailResponse = await axios.get<ScrapboxPage>(
               `https://scrapbox.io/api/pages/${this.projectName}/${encodeURIComponent(page.title)}`,
+              {
+                headers: this.getHeaders(),
+              }
             );
             return detailResponse.data;
           } catch (error) {

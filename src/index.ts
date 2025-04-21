@@ -30,6 +30,7 @@ async function main() {
   try {
     // 環境変数から設定を読み込む
     const projectName = process.env.SCRAPBOX_PROJECT_NAME;
+    const scrapboxCookie = process.env.SCRAPBOX_COOKIE;
     const maskKeywords = (process.env.MASK_KEYWORDS || '').split(',');
     const outputPath = process.env.OUTPUT_CSV_PATH || path.join(__dirname, '../output.csv');
     
@@ -39,11 +40,18 @@ async function main() {
     
     console.log(`Scrapbox プロジェクト "${projectName}" から最近1週間の更新ページを抽出します...`);
     
+    // 認証情報のステータスを表示
+    if (scrapboxCookie) {
+      console.log('認証Cookieが設定されています。プライベートプロジェクトにアクセスできます。');
+    } else {
+      console.log('注意: 認証Cookieが設定されていません。パブリックプロジェクトのみアクセスできます。');
+    }
+    
     // 1週間前のタイムスタンプを取得
     const oneWeekAgo = getOneWeekAgoTimestamp();
     
     // Scrapbox サービスのインスタンスを作成
-    const scrapboxService = new ScrapboxService(projectName);
+    const scrapboxService = new ScrapboxService(projectName, scrapboxCookie);
     
     // 最近更新されたページを取得
     const recentPages = await scrapboxService.getRecentlyUpdatedPages(oneWeekAgo);
