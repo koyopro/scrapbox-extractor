@@ -40,7 +40,7 @@ export class ScrapboxService {
       );
       
       // 指定日時以降に更新されたページをフィルタリング
-      const recentPages = response.data.pages.filter(page => page.updated > since);
+      const recentPages = response.data.pages.filter(page => page.updated * 1000 > since);
       
       // 詳細なページ内容を取得
       const pagesWithContent = await Promise.all(
