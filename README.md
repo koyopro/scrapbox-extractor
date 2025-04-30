@@ -37,7 +37,7 @@ Example `.env` file:
 # Scrapbox settings
 SCRAPBOX_PROJECT_NAME=your_project_name
 # Scrapbox authentication cookie (connect.sid=xxxxx)
-SCRAPBOX_COOKIE=
+SCRAPBOX_COOKIE="connect.sid=xxxxxxx"
 # Keywords for masking personal information (comma-separated)
 MASK_KEYWORDS=keyword1,keyword2,keyword3
 # Output file path for CSV
